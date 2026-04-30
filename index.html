@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CPP Lost & Found</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-icon">LF</div>
+        <div>
+          <h1>CPP Lost & Found</h1>
+          <p>Find lost items or report found ones</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="phone-frame">
+      <!-- home -->
+      <section id="home" class="screen active">
+        <div class="screen-content">
+          <h2>Welcome</h2>
+          <p class="subtitle">
+            Choose the task you want to complete.
+          </p>
+
+          <div class="home-actions">
+            <button class="primary-btn" onclick="showScreen('lost-list')">
+              I Lost Something
+            </button>
+
+            <button class="secondary-btn" onclick="showScreen('found-form')">
+              I Found Something
+            </button>
+          </div>
+
+          <div class="info-card">
+            <h3>How it works</h3>
+            <ol>
+              <li>Search the found item list first</li>
+              <li>Claim an item if it matches yours</li>
+              <li>Or report a found item and follow drop-off directions</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- lost flow: list -->
+      <section id="lost-list" class="screen">
+        <div class="screen-header">
+          <button class="back-btn" onclick="showScreen('home')">← Back</button>
+          <h2>Found Items</h2>
+        </div>
+
+        <div class="screen-content">
+          <p class="subtitle">
+            Search or browse found items to see if yours is already listed.
+          </p>
+
+          <input
+            type="text"
+            id="searchInput"
+            class="search-input"
+            placeholder="Search by item name or location"
+            onkeyup="filterItems()"
+          >
+
+          <div id="itemList">
+            <div class="item-card searchable-item" data-name="blue hydro flask university library" onclick="showScreen('item-details')">
+              <div class="item-card-top">
+                <h3>Blue Hydro Flask</h3>
+                <span class="status-badge">Found</span>
+              </div>
+              <p>Location: University Library</p>
+              <p>Date Found: April 21</p>
+              <p class="tap-hint">Tap to view details</p>
+            </div>
+
+            <div class="item-card searchable-item" data-name="black wallet building 9">
+              <div class="item-card-top">
+                <h3>Black Wallet</h3>
+                <span class="status-badge">Found</span>
+              </div>
+              <p>Location: Building 9</p>
+              <p>Date Found: April 20</p>
+              <p class="tap-hint">Prototype placeholder</p>
+            </div>
+
+            <div class="item-card searchable-item" data-name="silver keys bric">
+              <div class="item-card-top">
+                <h3>Silver Keys</h3>
+                <span class="status-badge">Found</span>
+              </div>
+              <p>Location: BRIC</p>
+              <p>Date Found: April 19</p>
+              <p class="tap-hint">Prototype placeholder</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- lost flow: details -->
+      <section id="item-details" class="screen">
+        <div class="screen-header">
+          <button class="back-btn" onclick="showScreen('lost-list')">← Back</button>
+          <h2>Item Details</h2>
+        </div>
+
+        <div class="screen-content">
+          <div class="details-card">
+            <h3>Blue Hydro Flask</h3>
+            <p><strong>Found at:</strong> University Library</p>
+            <p><strong>Date Found:</strong> April 21</p>
+            <p><strong>Description:</strong> Blue water bottle with a sticker on the side.</p>
+            <p><strong>Additional Note:</strong> Turned in to CPP Lost & Found desk.</p>
+          </div>
+
+          <button class="primary-btn" onclick="showScreen('claim-form')">
+            Claim Item
+          </button>
+        </div>
+      </section>
+
+      <!-- lost flow: claim form -->
+      <section id="claim-form" class="screen">
+        <div class="screen-header">
+          <button class="back-btn" onclick="showScreen('item-details')">← Back</button>
+          <h2>Claim Item</h2>
+        </div>
+
+        <div class="screen-content">
+          <p class="subtitle">
+            Enter your information to submit a claim request.
+          </p>
+
+          <form class="item-form" onsubmit="submitClaim(event)">
+            <label for="claimName">Full Name</label>
+            <input type="text" id="claimName" placeholder="Enter your name" required>
+
+            <label for="claimEmail">CPP Email</label>
+            <input type="email" id="claimEmail" placeholder="Enter your CPP email" required>
+
+            <label for="claimNote">Verification Note</label>
+            <textarea id="claimNote" rows="4" placeholder="Describe a unique detail about the item" required></textarea>
+
+            <button type="submit" class="primary-btn">
+              Submit Claim
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- fake notification -->
+      <section id="notification-screen" class="screen">
+        <div class="screen-header">
+          <button class="back-btn" onclick="showScreen('claim-form')">← Back</button>
+          <h2>Notification</h2>
+        </div>
+
+        <div class="screen-content">
+          <div class="success-card">
+            <div class="success-icon">✓</div>
+            <h3>Match confirmed</h3>
+            <p>Your claim was reviewed and approved.</p>
+          </div>
+
+          <button class="primary-btn" onclick="showScreen('claim-success')">
+            View Pickup Directions
+          </button>
+        </div>
+      </section>
+
+      <!-- claim success -->
+      <section id="claim-success" class="screen">
+        <div class="screen-header">
+          <button class="back-btn" onclick="showScreen('notification-screen')">← Back</button>
+          <h2>Pickup Directions</h2>
+        </div>
+
+        <div class="screen-content">
+          <div class="map-card">
+            <div class="map-placeholder">MAP PLACEHOLDER</div>
+            <p><strong>Pickup Location:</strong> Student Services Building</p>
+            <p><strong>Hours:</strong> Mon–Fri, 8:00 AM – 5:00 PM</p>
+            <p><strong>Instructions:</strong> Show your CPP ID at the front desk.</p>
+          </div>
+
+          <button class="primary-btn" onclick="showScreen('home')">
+            Return Home
+          </button>
+        </div>
+      </section>
+
+      <!-- found flow -->
+      <section id="found-form" class="screen">
+        <div class="screen-header">
+          <button class="back-btn" onclick="showScreen('home')">← Back</button>
+          <h2>Report Found Item</h2>
+        </div>
+
+        <div class="screen-content">
+          <p class="subtitle">
+            Fill out this form to report the item you found.
+          </p>
+
+          <form class="item-form" onsubmit="submitFoundItem(event)">
+            <label for="itemName">Item Name</label>
+            <input type="text" id="itemName" placeholder="ex. phone, wallet, keys" required>
+
+            <label for="dateFound">Date Found</label>
+            <input type="date" id="dateFound" required>
+
+            <label for="locationFound">Location Found</label>
+            <input type="text" id="locationFound" placeholder="ex. library, classroom, BRIC" required>
+
+            <label for="description">Description</label>
+            <textarea id="description" rows="4" placeholder="add a short description"></textarea>
+
+            <button type="submit" class="primary-btn">
+              Submit Report
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- found success -->
+      <section id="submit-success" class="screen">
+        <div class="screen-header">
+          <button class="back-btn" onclick="showScreen('found-form')">← Back</button>
+          <h2>Report Submitted</h2>
+        </div>
+
+        <div class="screen-content">
+          <div class="success-card">
+            <div class="success-icon">✓</div>
+            <h3>Thank you for reporting the item</h3>
+            <p>Please bring the item to the CPP Lost & Found drop-off location.</p>
+          </div>
+
+          <div class="map-card">
+            <div class="map-placeholder">MAP PLACEHOLDER</div>
+            <p><strong>Drop-off Location:</strong> Student Services Building</p>
+            <p><strong>Hours:</strong> Mon–Fri, 8:00 AM – 5:00 PM</p>
+            <p><strong>Instructions:</strong> Bring the item to the front desk and mention your report.</p>
+          </div>
+
+          <button class="primary-btn" onclick="showScreen('home')">
+            Return Home
+          </button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
