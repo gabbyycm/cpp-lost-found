@@ -7,254 +7,600 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="app-shell">
-    <header class="topbar">
-      <div class="brand">
-        <div class="brand-icon">LF</div>
-        <div>
-          <h1>CPP Lost & Found</h1>
-          <p>Find lost items or report found ones</p>
+<div class="app-shell">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-icon">LF</div>
+      <div>
+        <h1>CPP Lost &amp; Found</h1>
+        <p>Cal Poly Pomona</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="phone-frame">
+    <div class="loading-overlay" id="loadingOverlay">
+      <div class="spinner"></div>
+      <p id="loadingMsg">Loading…</p>
+    </div>
+
+<section id="home" class="screen active">
+  <div class="screen-scroll">
+    <div class="home-hero">
+      <div class="home-hero-icon">🔍</div>
+      <h2>CPP Lost &amp; Found</h2>
+      <p>Browse reported items or let us know what you've found on campus.</p>
+    </div>
+
+    <div class="home-actions">
+      <button class="home-big-btn primary" onclick="enterApp('lost-list','nav-browse')">
+        <div class="btn-icon">❓</div>
+        <div class="btn-label">
+          <strong>I Lost Something</strong>
+          <span>Search the found items list</span>
+        </div>
+      </button>
+
+      <button class="home-big-btn secondary" onclick="enterApp('found-form','nav-report')">
+        <div class="btn-icon">📦</div>
+        <div class="btn-label">
+          <strong>I Found Something</strong>
+          <span>Report an item you found</span>
+        </div>
+      </button>
+    </div>
+
+    <div class="info-card">
+      <h3>How it works</h3>
+      <ol>
+        <li>Search the found items list to see if yours is already there</li>
+        <li>Claim a match or report what you found</li>
+        <li>Follow pickup or drop-off directions to the Student Services Building</li>
+      </ol>
+    </div>
+
+    <div class="home-taskbar">
+      <button onclick="showScreen('found-map')">
+        <span>🗺</span>
+        <p>Map</p>
+      </button>
+
+      <button class="notif-btn" onclick="showScreen('notifications'); clearNotif()">
+        <span class="notif-icon">
+          🔔
+          <span id="notifBadge" class="notif-badge"></span>
+        </span>
+        <p>Notifications</p>
+      </button>
+
+      <button onclick="showScreen('claim-history')">
+        <span>📋</span>
+        <p>Claim History</p>
+      </button>
+    </div>
+  </div>
+</section>
+
+    <section id="lost-list" class="screen">
+  <div class="screen-header">
+    <button class="back-btn" onclick="goHome()">← Back</button>
+    <h2>Found Items</h2>
+  </div>
+
+  <div class="screen-scroll">
+    <p class="subtitle">Search or browse. Tap an item to view details.</p>
+
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input 
+        type="text" 
+        id="searchInput" 
+        class="search-input" 
+        placeholder="Search by item or location" 
+        oninput="filterItems()"
+      >
+    </div>
+
+    <div class="cant-find-card compact">
+  <div>
+    <p class="cant-find-title">Can’t find your item?</p>
+    <p class="cant-find-sub">Report it and we’ll notify you if it turns up.</p>
+  </div>
+
+  <button class="outline-btn compact-btn" onclick="showScreen('lost-form')">
+    Report
+  </button>
+</div>
+
+    <div class="item-list-scroll">
+
+      <div class="item-card searchable-item" data-name="airpods pro case building 9 college of engineering"
+        onclick="showItemDetail('AirPods Pro Case','Building 9 — College of Engineering','April 25','White AirPods Pro case, no AirPods inside. Small scratch on back.','Found in a hallway.', 'https://i.ebayimg.com/images/g/lYwAAOSwfeFhv7o1/s-l1200.jpg'
+)">
+        <div class="item-row">
+          <div class="item-card-img">
+            <img src="https://i.ebayimg.com/images/g/lYwAAOSwfeFhv7o1/s-l1200.jpg" alt="AirPods Case">
+          </div>
+          <div class="item-card-body">
+            <div class="item-card-top">
+              <h3>AirPods Pro Case</h3>
+              <span class="status-badge">Found</span>
+            </div>
+            <p>📍 Bldg 9 – College of Engineering</p>
+            <p>🗓 April 25</p>
+            <p class="tap-hint">Tap to view details →</p>
+          </div>
         </div>
       </div>
-    </header>
 
-    <main class="phone-frame">
-      <!-- home -->
-      <section id="home" class="screen active">
-        <div class="screen-content">
-          <h2>Welcome</h2>
-          <p class="subtitle">
-            Choose the task you want to complete.
-          </p>
-
-          <div class="home-actions">
-            <button class="primary-btn" onclick="showScreen('lost-list')">
-              I Lost Something
-            </button>
-
-            <button class="secondary-btn" onclick="showScreen('found-form')">
-              I Found Something
-            </button>
+      <div class="item-card searchable-item" data-name="red umbrella building 26 university plaza"
+        onclick="showItemDetail('Red Umbrella','Building 26 — University Plaza','April 24','Full-size red umbrella with a wooden handle. No name tag.','Left leaning against a chair near the plaza entrance.','https://i.ebayimg.com/images/g/BQAAAeSw4v9pteJZ/s-l1200.jpg')">
+        <div class="item-row">
+          <div class="item-card-img">
+            <img src="https://i.ebayimg.com/images/g/BQAAAeSw4v9pteJZ/s-l1200.jpg" alt="Red Umbrella">
           </div>
-
-          <div class="info-card">
-            <h3>How it works</h3>
-            <ol>
-              <li>Search the found item list first</li>
-              <li>Claim an item if it matches yours</li>
-              <li>Or report a found item and follow drop-off directions</li>
-            </ol>
-          </div>
-        </div>
-      </section>
-
-      <!-- lost flow: list -->
-      <section id="lost-list" class="screen">
-        <div class="screen-header">
-          <button class="back-btn" onclick="showScreen('home')">← Back</button>
-          <h2>Found Items</h2>
-        </div>
-
-        <div class="screen-content">
-          <p class="subtitle">
-            Search or browse found items to see if yours is already listed.
-          </p>
-
-          <input
-            type="text"
-            id="searchInput"
-            class="search-input"
-            placeholder="Search by item name or location"
-            onkeyup="filterItems()"
-          >
-
-          <div id="itemList">
-            <div class="item-card searchable-item" data-name="blue hydro flask university library" onclick="showScreen('item-details')">
-              <div class="item-card-top">
-                <h3>Blue Hydro Flask</h3>
-                <span class="status-badge">Found</span>
-              </div>
-              <p>Location: University Library</p>
-              <p>Date Found: April 21</p>
-              <p class="tap-hint">Tap to view details</p>
+          <div class="item-card-body">
+            <div class="item-card-top">
+              <h3>Red Umbrella</h3>
+              <span class="status-badge">Found</span>
             </div>
-
-            <div class="item-card searchable-item" data-name="black wallet building 9">
-              <div class="item-card-top">
-                <h3>Black Wallet</h3>
-                <span class="status-badge">Found</span>
-              </div>
-              <p>Location: Building 9</p>
-              <p>Date Found: April 20</p>
-              <p class="tap-hint">Prototype placeholder</p>
-            </div>
-
-            <div class="item-card searchable-item" data-name="silver keys bric">
-              <div class="item-card-top">
-                <h3>Silver Keys</h3>
-                <span class="status-badge">Found</span>
-              </div>
-              <p>Location: BRIC</p>
-              <p>Date Found: April 19</p>
-              <p class="tap-hint">Prototype placeholder</p>
-            </div>
+            <p>📍 Bldg 26 – University Plaza</p>
+            <p>🗓 April 24</p>
+            <p class="tap-hint">Tap to view details →</p>
           </div>
         </div>
-      </section>
+      </div>
 
-      <!-- lost flow: details -->
-      <section id="item-details" class="screen">
-        <div class="screen-header">
-          <button class="back-btn" onclick="showScreen('lost-list')">← Back</button>
-          <h2>Item Details</h2>
+      <div class="item-card searchable-item" data-name="ti-84 graphing calculator building 15 library study"
+        onclick="showItemDetail('TI-84 Calculator','Building 15 — Library','April 23','Black TI-84 Plus graphing calculator. Initials J.M. written in marker on back.','Left at a study desk near the entrance.','https://i.ebayimg.com/images/g/KOsAAOSwoMxl49jD/s-l1200.jpg')">
+        <div class="item-row">
+          <div class="item-card-img">
+            <img src="https://i.ebayimg.com/images/g/KOsAAOSwoMxl49jD/s-l1200.jpg" alt="TI-84 Calculator">
+          </div>
+          <div class="item-card-body">
+            <div class="item-card-top">
+              <h3>TI-84 Calculator</h3>
+              <span class="status-badge">Found</span>
+            </div>
+            <p>📍 Building 15 – Library</p>
+            <p>🗓 April 23</p>
+            <p class="tap-hint">Tap to view details →</p>
+          </div>
         </div>
+      </div>
 
-        <div class="screen-content">
-          <div class="details-card">
-            <h3>Blue Hydro Flask</h3>
-            <p><strong>Found at:</strong> University Library</p>
-            <p><strong>Date Found:</strong> April 21</p>
-            <p><strong>Description:</strong> Blue water bottle with a sticker on the side.</p>
-            <p><strong>Additional Note:</strong> Turned in to CPP Lost & Found desk.</p>
+      <div class="item-card searchable-item" data-name="purple backpack jansport building 8 college of science"
+        onclick="showItemDetail('Purple Backpack','Building 8 — College of Science','April 22','Medium-size purple JanSport backpack. Contains notebooks and a pencil case.','Found in a common area.','https://di2ponv0v5otw.cloudfront.net/posts/2025/04/23/68090296420644e93fe1c35e/l_wp_680902a224d2e7b1e786b97b.webp')">
+        <div class="item-row">
+          <div class="item-card-img">
+            <img src="https://di2ponv0v5otw.cloudfront.net/posts/2025/04/23/68090296420644e93fe1c35e/l_wp_680902a224d2e7b1e786b97b.webp" alt="Purple Backpack">
+          </div>
+          <div class="item-card-body">
+            <div class="item-card-top">
+              <h3>Purple Backpack</h3>
+              <span class="status-badge">Found</span>
+            </div>
+            <p>📍 Bldg 8 – College of Science</p>
+            <p>🗓 April 22</p>
+            <p class="tap-hint">Tap to view details →</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="item-card searchable-item" data-name="sunglasses parking lot j wayfarer"
+        onclick="showItemDetail('Sunglasses','Parking Lot J','April 21','Black-frame wayfarer-style sunglasses. Found on the ground. No case.','Found in Parking Lot J.','https://di2ponv0v5otw.cloudfront.net/posts/2025/11/14/69179bd824d2e71487045e2c/l_wp_69179bde9b2158c91d216331.webp')">
+        <div class="item-row">
+          <div class="item-card-img">
+            <img src="https://di2ponv0v5otw.cloudfront.net/posts/2025/11/14/69179bd824d2e71487045e2c/l_wp_69179bde9b2158c91d216331.webp" alt="Sunglasses">
+          </div>
+          <div class="item-card-body">
+            <div class="item-card-top">
+              <h3>Sunglasses</h3>
+              <span class="status-badge">Found</span>
+            </div>
+            <p>📍 Parking Lot J</p>
+            <p>🗓 April 21</p>
+            <p class="tap-hint">Tap to view details →</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="item-card searchable-item" data-name="phone case iphone blue building 66 bronco bookstore"
+        onclick="showItemDetail('iPhone Blue Case (No Phone)','Building 66 — Bronco Bookstore','April 20','Blue MagSafe-compatible phone case, fits iPhone 14 or 15. No phone inside.','Found near the entrance.','https://di2ponv0v5otw.cloudfront.net/posts/2023/03/03/640222f102760b78541b409b/m_wp_64022317253a8c5a6a1dcc56.webp')">
+        <div class="item-row">
+          <div class="item-card-img">
+            <img src="https://di2ponv0v5otw.cloudfront.net/posts/2023/03/03/640222f102760b78541b409b/m_wp_64022317253a8c5a6a1dcc56.webp" alt="Phone Case">
+          </div>
+          <div class="item-card-body">
+            <div class="item-card-top">
+              <h3>Blue Phone Case</h3>
+              <span class="status-badge">Found</span>
+            </div>
+            <p>📍 Bldg 66 – Bronco Bookstore</p>
+            <p>🗓 April 20</p>
+            <p class="tap-hint">Tap to view details →</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="item-card searchable-item" data-name="water bottle stanley green parking lot m"
+        onclick="showItemDetail('Green Stanley Cup','Parking Lot M','April 19','30 oz green Stanley quencher tumbler with a handle. Name Sofia on the bottom.','Found in Parking Lot M.','https://i.ebayimg.com/images/g/okcAAOSw2uBmBzoF/s-l1200.jpg')">
+        <div class="item-row">
+          <div class="item-card-img">
+            <img src="https://i.ebayimg.com/images/g/okcAAOSw2uBmBzoF/s-l1200.jpg" alt="Stanley Cup">
+          </div>
+          <div class="item-card-body">
+            <div class="item-card-top">
+              <h3>Green Stanley Cup</h3>
+              <span class="status-badge">Found</span>
+            </div>
+            <p>📍 Parking Lot M</p>
+            <p>🗓 April 19</p>
+            <p class="tap-hint">Tap to view details →</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+    <section id="lost-form" class="screen">
+      <div class="screen-header">
+        <button class="back-btn" onclick="showScreen('lost-list')">← Back</button>
+        <h2>Report Lost Item</h2>
+      </div>
+
+      <div class="screen-scroll">
+        <p class="subtitle">Fill out the details below and we'll alert you if your item is turned in.</p>
+
+        <form class="item-form" onsubmit="submitLostItem(event)">
+          <div class="field-group">
+            <label for="lostName">Full Name</label>
+            <input type="text" id="lostName" maxlength="80" placeholder="Enter your full name" required oninput="updateCount('lostName','lostNameCount',80)">
+            <span class="char-count" id="lostNameCount">0 / 80</span>
           </div>
 
-          <button class="primary-btn" onclick="showScreen('claim-form')">
-            Claim Item
-          </button>
+          <div class="field-group">
+            <label for="lostEmail">CPP Email</label>
+            <input type="email" id="lostEmail" placeholder="yourname@cpp.edu" required>
+          </div>
+
+          <div class="field-group">
+            <label for="lostItemName">Item Name</label>
+            <input type="text" id="lostItemName" maxlength="60" placeholder="e.g. phone, wallet, keys" required oninput="updateCount('lostItemName','lostItemNameCount',60)">
+            <span class="char-count" id="lostItemNameCount">0 / 60</span>
+          </div>
+
+          <div class="field-group">
+            <label for="lostDate">Date Lost</label>
+            <input type="date" id="lostDate" required>
+          </div>
+
+          <div class="field-group">
+  <label for="lostLocation">Last Known Location</label>
+  <input 
+    type="text" 
+    id="lostLocation" 
+    maxlength="80" 
+    placeholder="Type building or location" 
+    required 
+    oninput="updateCount('lostLocation','lostLocationCount',80); showBuildingSuggestions('lostLocation','lostLocationSuggestions')"
+  >
+  <div id="lostLocationSuggestions" class="suggestions"></div>
+  <span class="char-count" id="lostLocationCount">0 / 80</span>
+</div>
+
+          <div class="field-group">
+            <label for="lostDescription">Description</label>
+            <textarea id="lostDescription" rows="4" maxlength="300" placeholder="Color, size, brand, identifiable markings…" oninput="updateCount('lostDescription','lostDescCount',300)"></textarea>
+            <span class="char-count" id="lostDescCount">0 / 300</span>
+          </div>
+
+          <div class="field-group">
+  <label for="lostPhoto">Add Photo (optional)</label>
+  <input type="file" id="lostPhoto" accept="image/*" onchange="previewImage(event, 'lostPreview')">
+  
+  <img id="lostPreview" class="photo-preview" />
+</div>
+
+          <button type="submit" class="primary-btn">Submit Lost Report</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="lost-celebration" class="screen">
+      <div class="screen-header">
+        <button class="back-btn" onclick="showScreen('lost-form')">← Back</button>
+        <h2>Success</h2>
+      </div>
+
+      <div class="screen-scroll">
+        <div class="celebration-card">
+          <div class="celebration-icon">🎉</div>
+          <h3>Lost item report submitted!</h3>
+          <p>We’ll notify you at your CPP email if a matching item is found.</p>
         </div>
-      </section>
 
-      <!-- lost flow: claim form -->
-      <section id="claim-form" class="screen">
-        <div class="screen-header">
-          <button class="back-btn" onclick="showScreen('item-details')">← Back</button>
-          <h2>Claim Item</h2>
+        <div class="info-card">
+          <h3>What happens next?</h3>
+          <ol>
+            <li>Your report is logged in the system</li>
+            <li>Staff compare it with newly found items</li>
+            <li>You receive an update if there is a match</li>
+          </ol>
         </div>
 
-        <div class="screen-content">
-          <p class="subtitle">
-            Enter your information to submit a claim request.
-          </p>
+        <button class="primary-btn" onclick="goHome()">Return Home</button>
+      </div>
+    </section>
 
-          <form class="item-form" onsubmit="submitClaim(event)">
+    <section id="item-details" class="screen">
+      <div class="screen-header">
+        <button class="back-btn" onclick="showScreen('lost-list')">← Back</button>
+        <h2>Item Details</h2>
+      </div>
+
+      <div class="screen-scroll">
+        <div class="details-img">
+  <img id="detail-img" src="" alt="Item Image">
+</div>
+
+        <div class="details-card">
+          <h3 id="detail-name">–</h3>
+          <div class="details-row"><span class="label">Location Found</span><span class="value" id="detail-location">–</span></div>
+          <div class="details-row"><span class="label">Date Found</span><span class="value" id="detail-date">–</span></div>
+          <div class="details-row"><span class="label">Description</span><span class="value" id="detail-desc">–</span></div>
+          <div class="details-row"><span class="label">Additional Note</span><span class="value" id="detail-note">–</span></div>
+        </div>
+
+        <button class="primary-btn" onclick="showScreen('claim-form')">Claim This Item</button>
+      </div>
+    </section>
+
+    <section id="claim-form" class="screen">
+      <div class="screen-header">
+        <button class="back-btn" onclick="showScreen('item-details')">← Back</button>
+        <h2>Claim Item</h2>
+      </div>
+
+      <div class="screen-scroll">
+        <p class="subtitle">Enter your info and describe a unique detail so we can verify ownership.</p>
+
+        <form class="item-form" onsubmit="submitClaim(event)">
+          <div class="field-group">
             <label for="claimName">Full Name</label>
-            <input type="text" id="claimName" placeholder="Enter your name" required>
-
-            <label for="claimEmail">CPP Email</label>
-            <input type="email" id="claimEmail" placeholder="Enter your CPP email" required>
-
-            <label for="claimNote">Verification Note</label>
-            <textarea id="claimNote" rows="4" placeholder="Describe a unique detail about the item" required></textarea>
-
-            <button type="submit" class="primary-btn">
-              Submit Claim
-            </button>
-          </form>
-        </div>
-      </section>
-
-      <!-- fake notification -->
-      <section id="notification-screen" class="screen">
-        <div class="screen-header">
-          <button class="back-btn" onclick="showScreen('claim-form')">← Back</button>
-          <h2>Notification</h2>
-        </div>
-
-        <div class="screen-content">
-          <div class="success-card">
-            <div class="success-icon">✓</div>
-            <h3>Match confirmed</h3>
-            <p>Your claim was reviewed and approved.</p>
+            <input type="text" id="claimName" maxlength="80" placeholder="Enter your full name" required oninput="updateCount('claimName','claimNameCount',80)">
+            <span class="char-count" id="claimNameCount">0 / 80</span>
           </div>
 
-          <button class="primary-btn" onclick="showScreen('claim-success')">
-            View Pickup Directions
-          </button>
-        </div>
-      </section>
+          <div class="field-group">
+            <label for="claimEmail">CPP Email</label>
+            <input type="email" id="claimEmail" placeholder="yourname@cpp.edu" required>
+          </div>
 
-      <!-- claim success -->
-      <section id="claim-success" class="screen">
-        <div class="screen-header">
-          <button class="back-btn" onclick="showScreen('notification-screen')">← Back</button>
-          <h2>Pickup Directions</h2>
+          <div class="field-group">
+            <label for="claimNote">Verification Note</label>
+            <textarea id="claimNote" rows="4" maxlength="300" placeholder="Describe a unique detail only the owner would know" required oninput="updateCount('claimNote','claimNoteCount',300)"></textarea>
+            <span class="char-count" id="claimNoteCount">0 / 300</span>
+          </div>
+
+          <button type="submit" class="primary-btn">Submit Claim</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="claim-celebration" class="screen">
+      <div class="screen-header">
+        <button class="back-btn" onclick="showScreen('claim-form')">← Back</button>
+        <h2>Success</h2>
+      </div>
+
+      <div class="screen-scroll">
+        <div class="celebration-card">
+          <div class="celebration-icon">🎉</div>
+          <h3>Your claim is confirmed!</h3>
+          <p>Your description matched the item on file. Bring your CPP ID to pick it up.</p>
         </div>
 
-        <div class="screen-content">
-          <div class="map-card">
-            <div class="map-placeholder">MAP PLACEHOLDER</div>
+        <button class="primary-btn" onclick="showScreen('claim-map')">View Pickup Map</button>
+        <button class="outline-btn" onclick="showScreen('claim-history')">View Claim History</button>
+        <button class="outline-btn" onclick="goHome()">Return Home</button>
+      </div>
+    </section>
+
+    <section id="claim-map" class="screen">
+      <div class="screen-header">
+        <button class="back-btn" onclick="showScreen('claim-celebration')">← Back</button>
+        <h2>Pickup Directions</h2>
+      </div>
+
+      <div class="screen-scroll">
+        <div class="map-card">
+          <iframe class="map-embed" loading="lazy"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.0!2d-117.8224!3d34.0572!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c32b5a6dd34e73%3A0x9cc5d4ead0ad3b0!2sCal%20Poly%20Pomona!5e0!3m2!1sen!2sus!4v1714000000000">
+          </iframe>
+          <div class="map-info">
             <p><strong>Pickup Location:</strong> Student Services Building</p>
             <p><strong>Hours:</strong> Mon–Fri, 8:00 AM – 5:00 PM</p>
             <p><strong>Instructions:</strong> Show your CPP ID at the front desk.</p>
+            <button class="map-open-btn" onclick="openMaps()">🗺 Open in Google Maps</button>
+          </div>
+        </div>
+
+        <button class="primary-btn" onclick="goHome()">Return Home</button>
+      </div>
+    </section>
+
+    <section id="claim-history" class="screen">
+      <div class="screen-header">
+        <button class="back-btn" onclick="goHome()">← Back</button>
+        <h2>Claim History</h2>
+      </div>
+
+      <div class="screen-scroll">
+        <p class="subtitle">View previous claims and reopen pickup directions.</p>
+        <div id="claimHistoryList">
+          <div class="info-card">
+            <h3>No claims yet</h3>
+            <p class="cant-find-sub">Claimed items will appear here after you submit a claim.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="found-form" class="screen">
+      <div class="screen-header">
+        <button class="back-btn" onclick="goHome()">← Back</button>
+        <h2>Report Found Item</h2>
+      </div>
+
+      <div class="screen-scroll">
+        <p class="subtitle">Fill out this form and drop the item off at the Lost &amp; Found desk.</p>
+
+        <form class="item-form" onsubmit="submitFoundItem(event)">
+          <div class="field-group">
+            <label for="itemName">Item Name</label>
+            <input type="text" id="itemName" maxlength="60" placeholder="e.g. phone, wallet, keys" required oninput="updateCount('itemName','itemNameCount',60)">
+            <span class="char-count" id="itemNameCount">0 / 60</span>
           </div>
 
-          <button class="primary-btn" onclick="showScreen('home')">
-            Return Home
-          </button>
-        </div>
-      </section>
-
-      <!-- found flow -->
-      <section id="found-form" class="screen">
-        <div class="screen-header">
-          <button class="back-btn" onclick="showScreen('home')">← Back</button>
-          <h2>Report Found Item</h2>
-        </div>
-
-        <div class="screen-content">
-          <p class="subtitle">
-            Fill out this form to report the item you found.
-          </p>
-
-          <form class="item-form" onsubmit="submitFoundItem(event)">
-            <label for="itemName">Item Name</label>
-            <input type="text" id="itemName" placeholder="ex. phone, wallet, keys" required>
-
+          <div class="field-group">
             <label for="dateFound">Date Found</label>
             <input type="date" id="dateFound" required>
-
-            <label for="locationFound">Location Found</label>
-            <input type="text" id="locationFound" placeholder="ex. library, classroom, BRIC" required>
-
-            <label for="description">Description</label>
-            <textarea id="description" rows="4" placeholder="add a short description"></textarea>
-
-            <button type="submit" class="primary-btn">
-              Submit Report
-            </button>
-          </form>
-        </div>
-      </section>
-
-      <!-- found success -->
-      <section id="submit-success" class="screen">
-        <div class="screen-header">
-          <button class="back-btn" onclick="showScreen('found-form')">← Back</button>
-          <h2>Report Submitted</h2>
-        </div>
-
-        <div class="screen-content">
-          <div class="success-card">
-            <div class="success-icon">✓</div>
-            <h3>Thank you for reporting the item</h3>
-            <p>Please bring the item to the CPP Lost & Found drop-off location.</p>
           </div>
 
-          <div class="map-card">
-            <div class="map-placeholder">MAP PLACEHOLDER</div>
+          <div class="field-group">
+  <label for="locationFound">Location Found</label>
+  <input 
+    type="text" 
+    id="locationFound" 
+    maxlength="80" 
+    placeholder="Type building or location" 
+    required 
+    oninput="updateCount('locationFound','locationFoundCount',80); showBuildingSuggestions('locationFound','foundLocationSuggestions')"
+  >
+  <div id="foundLocationSuggestions" class="suggestions"></div>
+  <span class="char-count" id="locationFoundCount">0 / 80</span>
+</div>
+
+          <div class="field-group">
+            <label for="description">Description</label>
+            <textarea id="description" rows="4" maxlength="300" placeholder="Color, size, brand, identifiable markings…" oninput="updateCount('description','descCount',300)"></textarea>
+            <span class="char-count" id="descCount">0 / 300</span>
+          </div>
+
+          <div class="field-group">
+  <label for="foundPhoto">Add Photo (optional)</label>
+  <input type="file" id="foundPhoto" accept="image/*" onchange="previewImage(event, 'foundPreview')">
+  
+  <img id="foundPreview" class="photo-preview" />
+</div>
+
+          <button type="submit" class="primary-btn">Submit Report</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="found-celebration" class="screen">
+      <div class="screen-header">
+        <button class="back-btn" onclick="showScreen('found-form')">← Back</button>
+        <h2>Success</h2>
+      </div>
+
+      <div class="screen-scroll">
+        <div class="celebration-card">
+          <div class="celebration-icon">🎉</div>
+          <h3>Thank you for reporting!</h3>
+          <p>You helped make it easier for another student to recover their item.</p>
+        </div>
+
+        <button class="primary-btn" onclick="showScreen('found-map')">View Drop-Off Map</button>
+        <button class="outline-btn" onclick="goHome()">Return Home</button>
+      </div>
+    </section>
+
+    <section id="found-map" class="screen">
+      <div class="screen-header">
+        <button class="back-btn" onclick="showScreen('found-celebration')">← Back</button>
+        <h2>Drop-Off Directions</h2>
+      </div>
+
+      <div class="screen-scroll">
+        <div class="map-card">
+          <iframe class="map-embed" loading="lazy"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.0!2d-117.8224!3d34.0572!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c32b5a6dd34e73%3A0x9cc5d4ead0ad3b0!2sCal%20Poly%20Pomona!5e0!3m2!1sen!2sus!4v1714000000000">
+          </iframe>
+          <div class="map-info">
             <p><strong>Drop-off Location:</strong> Student Services Building</p>
             <p><strong>Hours:</strong> Mon–Fri, 8:00 AM – 5:00 PM</p>
             <p><strong>Instructions:</strong> Bring the item to the front desk and mention your report.</p>
+            <button class="map-open-btn" onclick="openMaps()">🗺 Open in Google Maps</button>
           </div>
-
-          <button class="primary-btn" onclick="showScreen('home')">
-            Return Home
-          </button>
         </div>
-      </section>
-    </main>
+
+        <button class="primary-btn" onclick="goHome()">Return Home</button>
+      </div>
+    </section>
+
+    <section id="notifications" class="screen">
+  <div class="screen-header">
+    <button class="back-btn" onclick="goHome()">← Back</button>
+    <h2>Notifications</h2>
   </div>
 
-  <script src="script.js"></script>
+  <div class="screen-scroll">
+    <div class="notification-card urgent">
+      <div class="notif-label">NEW MATCH</div>
+      <span class="ping-dot"></span>
+
+      <h3>Possible match found</h3>
+      <p>Your lost item report may match a Blue Hydro Flask found at the Library.</p>
+      <p><strong>Please go to the Student Services Building for pickup.</strong></p>
+
+      <div class="mini-item-card">
+        <h4>Blue Hydro Flask</h4>
+        <p>📍 Found at: Building 15 — Library</p>
+        <p>🗓 Found on: April 28</p>
+        <p>📝 Blue metal bottle with a succulent sticker and dented bottom.</p>
+      </div>
+
+      <button class="primary-btn" onclick="showScreen('claim-map')">
+        View Pickup Map
+      </button>
+    </div>
+
+    <div class="notification-card">
+      <h3>Lost report submitted</h3>
+      <p>Your lost item report is pending. We’ll notify you if a match is found.</p>
+
+      <div class="mini-item-card">
+        <h4>Lost Item Report: Water Bottle</h4>
+        <p>📍 Last seen: University Library</p>
+        <p>🗓 Date lost: April 28</p>
+        <p>📝 Blue bottle with a succulent sticker.</p>
+        <p><strong>Status:</strong> Pending match</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <nav class="bottom-nav" id="bottomNav">
+      <div class="nav-items">
+        <button class="nav-item" onclick="goHome()">
+          <span class="nav-icon">🏠</span><span>Home</span>
+        </button>
+        <button class="nav-item" id="nav-browse" onclick="navTo('lost-list','nav-browse')">
+          <span class="nav-icon">🔍</span><span>Browse</span>
+        </button>
+        <button class="nav-item" id="nav-report" onclick="navTo('found-form','nav-report')">
+          <span class="nav-icon">📬</span><span>Report</span>
+        </button>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
