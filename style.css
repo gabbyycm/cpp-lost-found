@@ -861,6 +861,19 @@ body {
   padding-right: 4px;
 }
 
+.map-wrapper {
+  position: relative;
+}
+
+.fake-map-marker {
+  position: absolute;
+  top: 44%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  font-size: 2rem;
+  pointer-events: none;
+}
+
 @media (max-width: 520px) {
   .phone-frame {
     width: 100%;

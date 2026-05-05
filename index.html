@@ -55,7 +55,7 @@
       <ol>
         <li>Search the found items list to see if yours is already there</li>
         <li>Claim a match or report what you found</li>
-        <li>Follow pickup or drop-off directions to the Student Services Building</li>
+        <li>Follow pickup or drop-off directions to the Bronco Student Center</li>
       </ol>
     </div>
 
@@ -68,7 +68,7 @@
       <button class="notif-btn" onclick="showScreen('notifications'); clearNotif()">
         <span class="notif-icon">
           🔔
-          <span id="notifBadge" class="notif-badge"></span>
+          <span id="notifBadge" class="notif-badge" style="display: none;"></span>
         </span>
         <p>Notifications</p>
       </button>
@@ -113,25 +113,6 @@
 </div>
 
     <div class="item-list-scroll">
-
-      <div class="item-card searchable-item" data-name="airpods pro case building 9 college of engineering"
-        onclick="showItemDetail('AirPods Pro Case','Building 9 — College of Engineering','April 25','White AirPods Pro case, no AirPods inside. Small scratch on back.','Found in a hallway.', 'https://i.ebayimg.com/images/g/lYwAAOSwfeFhv7o1/s-l1200.jpg'
-)">
-        <div class="item-row">
-          <div class="item-card-img">
-            <img src="https://i.ebayimg.com/images/g/lYwAAOSwfeFhv7o1/s-l1200.jpg" alt="AirPods Case">
-          </div>
-          <div class="item-card-body">
-            <div class="item-card-top">
-              <h3>AirPods Pro Case</h3>
-              <span class="status-badge">Found</span>
-            </div>
-            <p>📍 Bldg 9 – College of Engineering</p>
-            <p>🗓 April 25</p>
-            <p class="tap-hint">Tap to view details →</p>
-          </div>
-        </div>
-      </div>
 
       <div class="item-card searchable-item" data-name="red umbrella building 26 university plaza"
         onclick="showItemDetail('Red Umbrella','Building 26 — University Plaza','April 24','Full-size red umbrella with a wooden handle. No name tag.','Left leaning against a chair near the plaza entrance.','https://i.ebayimg.com/images/g/BQAAAeSw4v9pteJZ/s-l1200.jpg')">
@@ -240,6 +221,32 @@
           </div>
         </div>
       </div>
+      <div class="item-card searchable-item" data-name="blue hydro flask building 15 classroom"
+  onclick="showItemDetail(
+    'Blue Hydro Flask',
+    'Building 15 — Classroom',
+    'April 18',
+    'Blue Hydro Flask water bottle with a succulent sticker and slight dent.',
+    'Found in a classroom after lecture.',
+    'https://i.ebayimg.com/images/g/miAAAOSwsOJmv3Be/s-l1200.jpg'
+  )">
+
+  <div class="item-row">
+    <div class="item-card-img">
+      <img src="https://i.ebayimg.com/images/g/miAAAOSwsOJmv3Be/s-l1200.jpg" alt="Blue Hydro Flask">
+    </div>
+
+    <div class="item-card-body">
+      <div class="item-card-top">
+        <h3>Blue Hydro Flask</h3>
+        <span class="status-badge">Found</span>
+      </div>
+      <p>📍 Building 15 — Classroom</p>
+      <p>🗓 April 18</p>
+      <p class="tap-hint">Tap to view details →</p>
+    </div>
+  </div>
+</div>
 
     </div>
   </div>
@@ -331,7 +338,6 @@
           </ol>
         </div>
 
-        <button class="primary-btn" onclick="goHome()">Return Home</button>
       </div>
     </section>
 
@@ -381,7 +387,7 @@
 
           <div class="field-group">
             <label for="claimNote">Verification Note</label>
-            <textarea id="claimNote" rows="4" maxlength="300" placeholder="Describe a unique detail only the owner would know" required oninput="updateCount('claimNote','claimNoteCount',300)"></textarea>
+            <textarea id="claimNote" rows="4" maxlength="300" placeholder="Describe a unique detail if applicable" required oninput="updateCount('claimNote','claimNoteCount',300)"></textarea>
             <span class="char-count" id="claimNoteCount">0 / 300</span>
           </div>
 
@@ -411,17 +417,18 @@
 
     <section id="claim-map" class="screen">
       <div class="screen-header">
-        <button class="back-btn" onclick="showScreen('claim-celebration')">← Back</button>
         <h2>Pickup Directions</h2>
       </div>
 
       <div class="screen-scroll">
         <div class="map-card">
-          <iframe class="map-embed" loading="lazy"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.0!2d-117.8224!3d34.0572!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c32b5a6dd34e73%3A0x9cc5d4ead0ad3b0!2sCal%20Poly%20Pomona!5e0!3m2!1sen!2sus!4v1714000000000">
-          </iframe>
+          <iframe 
+  class="map-embed" 
+  loading="lazy"
+  src="https://www.google.com/maps?output=embed&q=Bronco%20Student%20Center%20Cal%20Poly%20Pomona">
+</iframe>
           <div class="map-info">
-            <p><strong>Pickup Location:</strong> Student Services Building</p>
+            <p><strong>Pickup Location:</strong> Bronco Student Center</p>
             <p><strong>Hours:</strong> Mon–Fri, 8:00 AM – 5:00 PM</p>
             <p><strong>Instructions:</strong> Show your CPP ID at the front desk.</p>
             <button class="map-open-btn" onclick="openMaps()">🗺 Open in Google Maps</button>
@@ -522,24 +529,28 @@
 
     <section id="found-map" class="screen">
       <div class="screen-header">
-        <button class="back-btn" onclick="showScreen('found-celebration')">← Back</button>
+        <button class="back-btn" onclick="goHome()">← Back</button>
         <h2>Drop-Off Directions</h2>
       </div>
 
       <div class="screen-scroll">
         <div class="map-card">
-          <iframe class="map-embed" loading="lazy"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.0!2d-117.8224!3d34.0572!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c32b5a6dd34e73%3A0x9cc5d4ead0ad3b0!2sCal%20Poly%20Pomona!5e0!3m2!1sen!2sus!4v1714000000000">
-          </iframe>
+          <div class="map-wrapper">
+  <iframe 
+    class="map-embed" 
+    loading="lazy"
+    src="https://www.google.com/maps?output=embed&q=Bronco%20Student%20Center%20Cal%20Poly%20Pomona">
+  </iframe>
+
+</div>
           <div class="map-info">
-            <p><strong>Drop-off Location:</strong> Student Services Building</p>
+            <p><strong>Drop-off Location:</strong> Bronco Student Center</p>
             <p><strong>Hours:</strong> Mon–Fri, 8:00 AM – 5:00 PM</p>
             <p><strong>Instructions:</strong> Bring the item to the front desk and mention your report.</p>
             <button class="map-open-btn" onclick="openMaps()">🗺 Open in Google Maps</button>
           </div>
         </div>
 
-        <button class="primary-btn" onclick="goHome()">Return Home</button>
       </div>
     </section>
 
@@ -554,16 +565,16 @@
       <div class="notif-label">NEW MATCH</div>
       <span class="ping-dot"></span>
 
-      <h3>Possible match found</h3>
-      <p>Your lost item report may match a Blue Hydro Flask found at the Library.</p>
-      <p><strong>Please go to the Student Services Building for pickup.</strong></p>
+<h3>Possible match found</h3>
+<p>Your lost item report may match an AirPods Pro case found near Building 9.</p>
+<p><strong>Please go to the Bronco Student Center for pickup.</strong></p>
 
-      <div class="mini-item-card">
-        <h4>Blue Hydro Flask</h4>
-        <p>📍 Found at: Building 15 — Library</p>
-        <p>🗓 Found on: April 28</p>
-        <p>📝 Blue metal bottle with a succulent sticker and dented bottom.</p>
-      </div>
+<div class="mini-item-card">
+  <h4>AirPods Pro Case</h4>
+  <p>📍 Found at: Building 9 — College of Engineering</p>
+  <p>🗓 Found on: April 25</p>
+  <p>📝 White AirPods Pro case with minor scratches.</p>
+</div>
 
       <button class="primary-btn" onclick="showScreen('claim-map')">
         View Pickup Map
@@ -577,7 +588,7 @@
       <div class="mini-item-card">
         <h4>Lost Item Report: Water Bottle</h4>
         <p>📍 Last seen: University Library</p>
-        <p>🗓 Date lost: April 28</p>
+        <p>🗓 Date lost: April 18</p>
         <p>📝 Blue bottle with a succulent sticker.</p>
         <p><strong>Status:</strong> Pending match</p>
       </div>

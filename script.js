@@ -14,7 +14,6 @@ const NAV_SCREENS = [
 ];
 
 const buildings = [
-  "Building 1 - Student Services Building",
   "Building 2 - College of Agriculture",
   "Building 3 - Science Laboratory",
   "Building 4 - Biotechnology Building",
@@ -82,7 +81,6 @@ const buildings = [
   "Bronco Bookstore",
   "BRIC",
   "Police and Parking Services",
-  "Student Services Building",
   "Parking Lot J",
   "Parking Lot M"
 ];
@@ -294,10 +292,10 @@ function submitLostItem(e) {
   showLoading("Submitting your lost item report…", 1200, () => {
     showScreen("lost-celebration");
 
-    // simulate notification appearing
-    setTimeout(() => {
-      document.getElementById("notifBadge").style.display = "block";
-    }, 1500);
+    const badge = document.getElementById("notifBadge");
+    if (badge) {
+      badge.style.display = "block";
+    }
   });
 }
 
@@ -326,7 +324,7 @@ function addClaimToHistory() {
   const claim = {
     item: itemName,
     status: "Confirmed",
-    location: "Student Services Building",
+    location: "Bronco Student Center",
     date: new Date().toLocaleDateString()
   };
 
@@ -381,7 +379,19 @@ function openLastMap() {
 
 function openMaps() {
   window.open(
-    "https://www.google.com/maps/search/Cal+Poly+Pomona+Student+Services+Building/@34.0572,-117.8224,17z",
+    "https://www.google.com/maps/search/?api=1&query=Bronco%20Student%20Center%20Cal%20Poly%20Pomona",
     "_blank"
   );
+}
+
+let previousScreen = "home";
+
+function showScreen(id) {
+  const current = document.querySelector(".screen.active");
+  if (current) {
+    previousScreen = current.id;
+  }
+
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
 }
