@@ -8,15 +8,22 @@
 </head>
 <body>
 <div class="app-shell">
-  <header class="topbar">
-    <div class="brand">
-      <div class="brand-icon">LF</div>
-      <div>
-        <h1>CPP Lost &amp; Found</h1>
-        <p>Cal Poly Pomona</p>
-      </div>
+  <<header class="topbar">
+  <div class="brand">
+    <div class="brand-icon">
+      <img 
+        class="brand-logo"
+        src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d1/Cal_Poly_Pomona_Broncos_logo.svg/1280px-Cal_Poly_Pomona_Broncos_logo.svg.png" 
+        alt="Broncos Logo"
+      >
     </div>
-  </header>
+
+    <div>
+      <h1>CPP Lost &amp; Found</h1>
+      <p>Cal Poly Pomona</p>
+    </div>
+  </div>
+</header>
 
   <div class="phone-frame">
     <div class="loading-overlay" id="loadingOverlay">
@@ -337,6 +344,8 @@
             <li>You receive an update if there is a match</li>
           </ol>
         </div>
+        <button class="primary-btn" onclick="goHome()">Return Home</button>
+<button class="outline-btn" onclick="showScreen('notifications')">View Notifications</button>
 
       </div>
     </section>
