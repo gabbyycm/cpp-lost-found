@@ -3,7 +3,7 @@ How to Run
 2. Open the project folder
 3. Double-click `index.html`  
    OR  
-   Right-click → Open with browser (crhome is recommended)
+   Right-click -> open with browser (crhome is recommended)
 Browse and search found items
 - View item details with photos
 - Submit lost item reports
